@@ -36,8 +36,8 @@ export default {
     this.getNewMessage();
     this.subscriptUserLeave();
   },
-  mouned() {
-    this.setScrollTopToBottom();
+  mounted() {
+    document.getElementById('loader').style.display = 'none';
   },
   methods: {
     connectionSocket() {

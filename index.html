@@ -4,9 +4,26 @@
     <meta charset="utf-8">
     <title>匿名聊天室</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="http://demo.lanrenzhijia.com/2015/load0409/css/loaders.css" type="text/css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <style>
+      body{
+        background: #ed5667;
+      }
+      .loader {
+        position: fixed;
+        top:50%;
+        left:50%;
+        transform: translate(-50%, -50%);
+      }
+    </style>
   </head>
   <body>
+    <div class="loader" id="loader">
+      <div class="loader-inner square-spin">
+        <div></div>
+      </div>
+    </div>
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>

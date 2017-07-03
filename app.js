@@ -5,7 +5,7 @@ const isDebug = process.env.NODE_ENV === 'production'
 const port = process.env.PORT || 3000
 
 app.use(express.static(path.join(__dirname, 'dist')))
-console.log(isDebug, 'not isDebug')
+
 if (!isDebug) {
   app.use((req, res) => {
     res.sendFile(path.join(__dirname, 'dist/index.html'))
