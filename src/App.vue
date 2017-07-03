@@ -21,7 +21,7 @@ export default {
   name: 'app',
   data() {
     return {
-      title: '今天吃什么？',
+      title: '安静不一定是美男子！',
       socket: null,
       messages: [],
       userInfo: {},
@@ -41,8 +41,10 @@ export default {
   },
   methods: {
     connectionSocket() {
-      const socket = io('http://192.168.1.104:3000');
+      const socketUrl = process.env.NODE_ENV === 'development' ? 'http://192.168.1.104:3000' : 'http://tryzf.online:3000'
+      const socket = io(socketUrl);
       const vm = this;
+      console.log(process.env.NODE_ENV)
       vm.socket = socket;
       vm.on('connectionSuccess', (data) => {
         console.log('连接Socket成功', data.numUsers)

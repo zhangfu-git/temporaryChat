@@ -65,7 +65,13 @@ io.sockets.on('connection', (socket) => {
     socket.emit('addedUser', {
       userInfo: user,
       numUsers: numUsers
-    })
+    });
+
+    // 当用户在登录页面的时候，也能接收到当前人数的变化
+    socket.broadcast.emit('connectionSuccess', {
+      numUsers: numUsers
+    });
+
   });
 
   // 监听有人断开

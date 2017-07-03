@@ -16,8 +16,9 @@ export default {
 .header {
   background:#404840;
   color:#fff;
-  font-size: 30px;
+  font-size: 20px;
   height: 5vh;
+  line-height: 5vh;
   text-align: center;
 }
 @media (min-width: 320px) and (max-width: 768px) {
