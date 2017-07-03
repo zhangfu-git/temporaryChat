@@ -59,18 +59,27 @@ export default {
         name: vm.userInfo.name
       }
       vm.emit('createMessage', data, () => {
-        vm.messages.push(data)
+        vm.updateMessageFn(data)
         setTimeout(vm.setScrollTopToBottom, 0)
       });
     },
+    updateMessageFn(message) {
+      const vm = this;
+      const len = vm.messages.length;
+      if (len > 20) {
+        vm.messages.shift();
+      }
+      vm.messages.push(message)
+    },
     pushNewMessage(newMessage) {
       const vm = this;
+
       if (Array.isArray(newMessage)) {
         newMessage.forEach((item) => {
-          vm.messages.push(item)
+          vm.updateMessageFn(item)
         })
       } else {
-        vm.messages.push(newMessage);
+        vm.updateMessageFn(newMessage);
       }
       vm.setScrollTopToBottom();
     },
