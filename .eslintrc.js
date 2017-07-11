@@ -36,7 +36,10 @@ module.exports = {
     'comma-dangle': 0,
     'no-console': 0,
     'semi': 0,
+    'no-new': 0,
     'no-alert': 0,
+    'no-mixed-operators': 0,
+    'quotes': 0,
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
   }

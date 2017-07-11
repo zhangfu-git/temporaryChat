@@ -21,7 +21,7 @@ export default {
   name: 'app',
   data() {
     return {
-      title: '安静不一定是美男子！',
+      title: '给你一点空间',
       socket: null,
       messages: [],
       userInfo: {},
@@ -40,6 +40,15 @@ export default {
     document.getElementById('loader').style.display = 'none';
   },
   methods: {
+    notification(userInfo) {
+      if (window.Notification && Notification.permission !== 'denied') {
+        Notification.requestPermission(() => {
+          new Notification(`${userInfo.name}~加入了聊天室`, { body: `系统通知！`, icon: userInfo.head });
+        });
+      } else {
+        new Notification(`${userInfo.name}~加入了聊天室`, { body: `系统通知！`, icon: userInfo.head });
+      }
+    },
     connectionSocket() {
       const socketUrl = process.env.NODE_ENV === 'development' ? 'http://192.168.1.104:3000' : 'http://tryzf.online:3000'
       const socket = io(socketUrl);
@@ -47,8 +56,11 @@ export default {
       console.log(process.env.NODE_ENV)
       vm.socket = socket;
       vm.on('connectionSuccess', (data) => {
-        console.log('连接Socket成功', data.numUsers)
         vm.numUsers = data.numUsers;
+        console.log(data.userInfo)
+        if (data.userInfo) {
+          vm.notification(data.userInfo);
+        }
       });
     },
     sendMessage(msg) {
@@ -86,13 +98,12 @@ export default {
     setScrollTopToBottom() {
       const vm = this;
       const $listBox = vm.$refs.listBox && vm.$refs.listBox.$el;
-      const top = $listBox.scrollHeight;
+      const top = $listBox && $listBox.scrollHeight || 0;
       $listBox.scrollTop = top
     },
     getNewMessage() {
       const vm = this;
       vm.on('messageAdded', (data) => {
-        console.log('有新的消息来了', data)
         vm.pushNewMessage(data.messages)
         // 等ui更新了在去设置scrollTop
         setTimeout(vm.setScrollTopToBottom, 0)
@@ -107,7 +118,7 @@ export default {
       this.on('addedUser', (data) => {
         this.isShow = false;
         this.userInfo = data.userInfo;
-        this.numUsers = data.numUsers
+        this.numUsers = data.numUsers;
       })
     },
     subscriptUserLeave() {
